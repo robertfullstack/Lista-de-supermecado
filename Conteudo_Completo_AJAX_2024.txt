@@ -1,0 +1,68 @@
+AJAX - CONCEITOS
+Significa Asynchronous JavaScript and XML - Uma forma assíncrona de realizar requisições.
+	Assíncrona significa que operações que agurdam algum resultado para dá outro.
+		Retorna rapidamente e na hora mesmo.
+	Sícrona - significa que é tudo ao mesmo tempo.
+Com o AJAX podemos realizar requisições após a página já ter se fechado antes.
+	Sem precisar realizar reload na página.
+Podemos realizar diversas coisas com o AJAX.
+	Muito útil.
+
+COMO FUNCIONA O AJAX
+Através de funções do JavaScript.
+	Fetch(), XMLHttpRequest(), etc...
+Atualmente é bem mais fácil trabalhar com AJAX do que antigamente.
+
+COMO REALIZAR UMA REQUISIÇÃO - AJAX
+É usado para realizar requisições.
+Code:
+	    <script>
+        var request = new XMLHttpRequest();
+        request.open('GET', 'https://jsonplaceholder.typicode.com/todos/1', true);
+
+        request.onload = function () {
+            if (this.status >= 200 && this.status < 400) {
+                // Requisição request sucess.
+                var data = JSON.parse(this.response)
+                console.log(data)
+            } else {
+                // Error.
+            }
+        }
+
+        request.onerror = () => {
+            // Caso queira passar alguma coisa para algum erro.
+        }
+
+        request.send();
+    </script>
+
+COMO REALIZAR UMA REQUISIÇÃO - AJAX COM FETCH
+É mais simples e mais fácil.
+Porém é recomendado saber os dois, pois no outro podemos manipular mais.
+Code:
+  <script>
+        fetch('https://jsonplaceholder.typicode.com/todos/1')
+            .then(response => response.json())
+            .then(json => console.log(json))
+
+
+    </script>
+Agora vamos fazer um POST.
+Code:
+	    <script>
+        fetch('https://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            body: JSON.stringify({
+                title: 'Título 01',
+                body: 'TEXTO AQUI DENTRO',
+                userId: 10
+            }),
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8'
+            }
+        })
+            .then(response => response.json())
+            .then(json => console.log(json))
+    </script>
+		É como se estivesse enviando esse valor para o servidor.
